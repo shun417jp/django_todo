@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}
+- 削除確認 -
+{% endblock %}
+
+{% block contents %}
+<div class="delete-confirm">
+    <h1>削除確認</h1>
+    
+    <p>以下のタスクを削除してもよろしいですか？</p>
+    
+    <div class="task-preview">
+        <h3>{{ task.title }}</h3>
+        {% if task.description %}
+            <p class="description">{{ task.description }}</p>
+        {% endif %}
+        
+        <div class="task-info">
+            <p><strong>完了状態:</strong> {% if task.complete == 1 %}✅ 完了{% else %}⏳ 未完了{% endif %}</p>
+            
+            {% if task.start_date %}
+                <p><strong>開始日:</strong> {{ task.start_date|date:"Y年m月d日 H:i" }}</p>
+            {% endif %}
+            
+            {% if task.end_date %}
+                <p><strong>終了日:</strong> {{ task.end_date|date:"Y年m月d日 H:i" }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="confirm-actions">
+        <form method="post" action="{% url 'delete' pk=task.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-confirm-btn">削除する</button>
+        </form>
+        <a href="{% url 'index' %}" class="cancel-btn">キャンセル</a>
+    </div>
+</div>
+
+<style>
+.delete-confirm {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.task-preview {
+    border: 2px solid #dc3545;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f8f9fa;
+}
+
+.task-preview h3 {
+    color: #dc3545;
+    margin-top: 0;
+}
+
+.description {
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.task-info {
+    margin-top: 15px;
+}
+
+.task-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.confirm-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.delete-confirm-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.delete-confirm-btn:hover {
+    background-color: #c82333;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+    color: white;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

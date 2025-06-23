@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+{{ object|yesno:'タスク編集,タスク追加' }}
+{% endblock %}
+
+{% block contents %}
+<div class="add">
+  <h1 class="mt-5">{{ object|yesno:'タスク編集,タスク作成' }}</h1>
+
+  <form action="{% if object %}{% url 'edit' object.id %}{% else %}{% url 'add' %}{% endif %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content=object|yesno:'更新,作成' size="md" class="btn btn-primary" %}
+  </form>
+
+  <a href="{% url 'index' %}" class="btn btn-secondary">一覧へ戻る</a>
+</div>
+{% endblock %}
