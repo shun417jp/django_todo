@@ -5,31 +5,177 @@
 {% endblock %}
 
 {% block contents %}
-<div class="index">
- <h1>Todo List</h1>
- <a href="{% url 'add' %}">タスクを追加</a>
-
- <ul>
-   {% for task in todo_list %}
-   <li class="{% if task.complete %}complete{% endif %}">
-     <form action="{% url 'update_task_complete' %}" method="post">
-       {% csrf_token %}
-
-       <input type="hidden" name="task_id" value="{{ task.id }}">
-       <input type="checkbox" name="task_{{ task.id }}" onchange="this.form.submit()" {% if task.complete %}checked{% endif %}>
-       <div class="task-header">
-         <span class="task-title">{{ task.title }}</span>
-         <span class="task-date">
-           {{ task.start_date|date:"Y年m月d日 H:i" }} - {{ task.end_date|date:"Y年m月d日 H:i" }}
-         </span>
-         <a href="{% url 'edit' task.id %}" class="edit-link">編集</a>
-         <a href="{% url 'delete_confirm' pk=task.pk %}">削除</a>
-       </div>
-       <p class="task-description">{{ task.description }}</p>
-
-     </form>
-   </li>
-   {% endfor %}
- </ul>
+<div class="container">
+  <div class="index">
+    <h1>Todo List</h1>
+    <a href="{% url 'add' %}" class="add-btn">タスクを追加</a>
+    <ul>
+      {% for task in todo_list %}
+      <li class="{% if task.complete %}complete{% endif %}">
+        <form action="{% url 'update_task_complete' %}" method="post" style="display: flex; align-items: flex-start;">
+          {% csrf_token %}
+          <input type="hidden" name="task_id" value="{{ task.id }}">
+          <input type="checkbox" name="task_{{ task.id }}" onchange="this.form.submit()" {% if task.complete %}checked{% endif %} style="margin-right: 1rem; margin-top: 0.5rem;">
+          <div style="flex: 1;">
+            <div class="task-header">
+              <span class="task-title">{{ task.title }}</span>
+              <span class="task-date">
+                {{ task.start_date|date:"Y年m月d日 H:i" }} - {{ task.end_date|date:"Y年m月d日 H:i" }}
+              </span>
+              <a href="{% url 'edit' task.id %}" class="edit-link">編集</a>
+              <a href="{% url 'delete_confirm' pk=task.pk %}" class="delete-link">削除</a>
+            </div>
+            <p class="task-description">{{ task.description }}</p>
+          </div>
+        </form>
+      </li>
+      {% empty %}
+      <li>タスクはありません。</li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
+
+<style>
+.container {
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
+  padding: 32px 28px 24px 28px;
+}
+.index h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #2a3b5d;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.add-btn {
+  display: inline-block;
+  margin-bottom: 28px;
+  padding: 12px 28px;
+  background: #007bff; /* グラデーションから単色に変更 */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+  border: none;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.add-btn:hover {
+  background: #0056b3; /* ホバー時も単色に */
+  box-shadow: 0 4px 16px rgba(0,123,255,0.16);
+}
+.index ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.index li {
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e3e8f0;
+  padding: 1.2rem 0.8rem;
+  border-radius: 10px;
+  background: #fafdff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, background 0.2s;
+  display: flex;
+  align-items: flex-start;
+}
+.index li:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  background: #f0f6ff;
+}
+.index li.complete {
+  background-color: #f3f3f3;
+  opacity: 0.7;
+}
+.index li.complete .task-title {
+  text-decoration: line-through;
+  color: #b0b0b0;
+}
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+}
+.task-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #2a3b5d;
+}
+.task-date {
+  font-size: 0.95rem;
+  color: #6c757d;
+  background: #e9f1fb;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: 0.5rem;
+}
+.edit-link, .delete-link {
+  font-size: 0.98rem;
+  margin-left: 1.2rem;
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+.edit-link {
+  color: #007bff;
+  background: #eaf4ff;
+}
+.edit-link:hover {
+  background: #d0e8ff;
+  color: #0056b3;
+}
+.delete-link {
+  color: #fff;
+  background: #dc3545;
+}
+.delete-link:hover {
+  background: #a71d2a;
+  color: #fff;
+}
+.task-description {
+  margin: 0.3rem 0 0 0;
+  font-size: 1rem;
+  color: #444;
+  background: #f7fafd;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #007bff;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 12px 4px 12px 4px;
+  }
+  .index h1 {
+    font-size: 1.4rem;
+  }
+  .add-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .task-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}
+</style>
 {% endblock %}

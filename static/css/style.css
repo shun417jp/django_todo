@@ -1,116 +1,167 @@
-* {
+body {
+  background: linear-gradient(120deg, #f0f4f9 0%, #e0e7ef 100%);
+  font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+  color: #222;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  height: 100vh;
-  padding: 50px 250px;
-  background-color: #e8e8e8;
-  color: #333;
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
+  padding: 32px 28px 24px 28px;
 }
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.index h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #2a3b5d;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-.index a {
+.add-btn {
   display: inline-block;
-  margin-bottom: 20px;
-  padding: 10px 15px;
-  background-color: #007bff;
+  margin-bottom: 28px;
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
   color: #fff;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+  border: none;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
-.index a:hover {
-  background-color: #0056b3;
+.add-btn:hover {
+  background: linear-gradient(90deg, #0056b3 60%, #0096c7 100%);
+  box-shadow: 0 4px 16px rgba(0,123,255,0.16);
 }
 
 .index ul {
-  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .index li {
-  background-color: #fff;
-  margin-bottom: 10px;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e3e8f0;
+  padding: 1.2rem 0.8rem;
+  border-radius: 10px;
+  background: #fafdff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, background 0.2s;
+  display: flex;
+  align-items: flex-start;
+}
+
+.index li:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  background: #f0f6ff;
 }
 
 .index li.complete {
+  background-color: #f3f3f3;
+  opacity: 0.7;
+}
+
+.index li.complete .task-title {
   text-decoration: line-through;
-  color: #999;
+  color: #b0b0b0;
 }
 
 .task-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  gap: 1.2rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
 }
 
 .task-title {
-  font-weight: bold;
-  font-size: 18px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #2a3b5d;
 }
 
 .task-date {
-  font-size: 14px;
-  color: #666;
+  font-size: 0.95rem;
+  color: #6c757d;
+  background: #e9f1fb;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: 0.5rem;
+}
+
+.edit-link, .delete-link {
+  font-size: 0.98rem;
+  margin-left: 1.2rem;
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.edit-link {
+  color: #007bff;
+  background: #eaf4ff;
+}
+
+.edit-link:hover {
+  background: #d0e8ff;
+  color: #0056b3;
+}
+
+.delete-link {
+  color: #fff;
+  background: #dc3545;
+}
+
+.delete-link:hover {
+  background: #a71d2a;
+  color: #fff;
 }
 
 .task-description {
-  font-size: 16px;
-}
-
-.add {
-  max-width: 800px;
-  padding: 20px;
-  margin: 0 auto;
-}
-
-.add form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.add form label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.add form input,
-.add form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  margin: 0.3rem 0 0 0;
+  font-size: 1rem;
+  color: #444;
+  background: #f7fafd;
   border-radius: 4px;
-  box-sizing: border-box;
+  padding: 6px 10px;
 }
 
-.add form button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #007bff;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
   cursor: pointer;
 }
 
-.add form button:hover {
-  background-color: #0056b3;
-}
-
-.add .field-error {
-  color: red;
-  margin-top: -10px;
-  margin-bottom: 10px;
+@media (max-width: 600px) {
+  .container {
+    padding: 12px 4px 12px 4px;
+  }
+  .index h1 {
+    font-size: 1.4rem;
+  }
+  .add-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .task-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
 }

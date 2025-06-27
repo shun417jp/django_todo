@@ -7,28 +7,22 @@
 {% block contents %}
 <div class="delete-confirm">
     <h1>削除確認</h1>
-    
     <p>以下のタスクを削除してもよろしいですか？</p>
-    
     <div class="task-preview">
         <h3>{{ task.title }}</h3>
         {% if task.description %}
             <p class="description">{{ task.description }}</p>
         {% endif %}
-        
         <div class="task-info">
             <p><strong>完了状態:</strong> {% if task.complete == 1 %}✅ 完了{% else %}⏳ 未完了{% endif %}</p>
-            
             {% if task.start_date %}
                 <p><strong>開始日:</strong> {{ task.start_date|date:"Y年m月d日 H:i" }}</p>
             {% endif %}
-            
             {% if task.end_date %}
                 <p><strong>終了日:</strong> {{ task.end_date|date:"Y年m月d日 H:i" }}</p>
             {% endif %}
         </div>
     </div>
-    
     <div class="confirm-actions">
         <form method="post" action="{% url 'delete' pk=task.pk %}" style="display: inline;">
             {% csrf_token %}
@@ -41,10 +35,22 @@
 <style>
 .delete-confirm {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 40px auto 0 auto;
+    padding: 32px 28px 24px 28px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
 }
-
+.delete-confirm h1 {
+    color: #dc3545;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+.delete-confirm p {
+    font-size: 1.1rem;
+    color: #333;
+}
 .task-preview {
     border: 2px solid #dc3545;
     border-radius: 8px;
@@ -52,63 +58,56 @@
     margin: 20px 0;
     background-color: #f8f9fa;
 }
-
 .task-preview h3 {
     color: #dc3545;
     margin-top: 0;
 }
-
 .description {
-    background-color: white;
+    background-color: #fff;
     padding: 10px;
     border-radius: 4px;
     margin: 10px 0;
+    font-size: 1rem;
 }
-
 .task-info {
     margin-top: 15px;
 }
-
 .task-info p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 0.98rem;
 }
-
 .confirm-actions {
     text-align: center;
     margin-top: 30px;
 }
-
 .delete-confirm-btn {
     background-color: #dc3545;
     color: white;
     padding: 12px 24px;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 1.1rem;
     cursor: pointer;
     margin-right: 15px;
+    transition: background 0.2s;
 }
-
 .delete-confirm-btn:hover {
     background-color: #c82333;
 }
-
 .cancel-btn {
     background-color: #6c757d;
     color: white;
     padding: 12px 24px;
     text-decoration: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+    margin-left: 10px;
+    display: inline-block;
 }
-
 .cancel-btn:hover {
     background-color: #5a6268;
     color: white;
 }
 </style>
-{% endblock %}
-
-{% block scripts %}
 {% endblock %}

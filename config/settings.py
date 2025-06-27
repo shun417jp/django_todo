@@ -26,8 +26,15 @@ SECRET_KEY = 'django-insecure-yyd&-3p#jh$cj(dhg5^ij4&y-7-g%5or-72gd4yqjalbb+@u)m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-todo-naao.onrender.com']
+# ...existing code...
 
+ALLOWED_HOSTS = [
+    'django-todo-naao.onrender.com',
+    '127.0.0.1',
+    'localhost',
+]
+
+# ...existing code...
 
 # Application definition
 
@@ -113,15 +120,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# ...existing code...
+
 STATIC_URL = 'static/'
 STATIC_ROOT = str(BASE_DIR / 'static')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# ...existing code...
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

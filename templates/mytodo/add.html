@@ -6,15 +6,87 @@
 {% endblock %}
 
 {% block contents %}
-<div class="add">
-  <h1 class="mt-5">{{ object|yesno:'タスク編集,タスク作成' }}</h1>
+<div class="add-container">
+  <h1 class="add-title">{{ object|yesno:'タスク編集,タスク作成' }}</h1>
 
-  <form action="{% if object %}{% url 'edit' object.id %}{% else %}{% url 'add' %}{% endif %}" method="post">
+  <form action="{% if object %}{% url 'edit' object.id %}{% else %}{% url 'add' %}{% endif %}" method="post" class="add-form">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content=object|yesno:'更新,作成' size="md" class="btn btn-primary" %}
+    <div class="button-wrapper">
+      {% bootstrap_button button_type="submit" content=object|yesno:'更新,作成' size="md" class="add-submit-btn btn" %}
+      <a href="{% url 'index' %}" class="cancel-btn">一覧へ戻る</a>
+    </div>
   </form>
-
-  <a href="{% url 'index' %}" class="btn btn-secondary">一覧へ戻る</a>
 </div>
+
+<style>
+.add-container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px 30px;
+  transition: box-shadow 0.3s ease;
+}
+.add-title {
+  color: #343a40;
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.add-form .form-group {
+  margin-bottom: 20px;
+}
+.add-form .form-control {
+  border-radius: 8px;
+  background: #fafdff;
+  border: 1px solid #e3e8f0;
+  font-size: 1rem;
+  padding: 10px;
+  transition: border 0.2s;
+}
+.add-form .form-control:focus {
+  border: 1.5px solid #0d6efd;
+  outline: none;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.add-submit-btn.btn {
+  background: linear-gradient(135deg, #0d6efd, #00b8d8);
+  color: #fff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+}
+.add-submit-btn.btn:hover {
+  background: linear-gradient(135deg, #0056b3, #0096c7);
+  box-shadow: 0 6px 16px rgba(13, 110, 253, 0.3);
+}
+.cancel-btn {
+  background-color: #6c757d;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  display: inline-block;
+}
+.cancel-btn:hover {
+  background-color: #5a6268;
+  color: #fff;
+}
+</style>
 {% endblock %}
